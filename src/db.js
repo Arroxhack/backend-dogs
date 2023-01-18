@@ -13,7 +13,6 @@ const {
 
 
 const sequelize = new Sequelize(DB_DEPLOY_RENDER, {
-  ssl: true,
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });
