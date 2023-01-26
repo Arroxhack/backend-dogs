@@ -30,7 +30,7 @@ router.get("/", async(req, res, next) => {  // /dogs y /dogs?name=razaDeApi o ra
                     id: dog.id,
                     image: dog.image.url,
                     name: dog.name,
-                    temperament: dog.temperament || "No tiene temperamentos",
+                    temperament: dog.temperament || "No temperaments",
                     min_weight: Number(dog.weight.metric.split(" - ")[0]),
                     max_weight: Number(dog.weight.metric.split(" - ")[1])
                 })
@@ -40,7 +40,7 @@ router.get("/", async(req, res, next) => {  // /dogs y /dogs?name=razaDeApi o ra
                 allDogs.push({
                     id: dog.id,
                     name: dog.name,
-                    temperament: dog.temperaments ? dog.temperaments.map(e => e.name).join(", ") : "No tiene temperamentos",
+                    temperament: dog.temperaments ? dog.temperaments.map(e => e.name).join(", ") : "No temperaments",
                     min_weight: Number(dog.weight.split(" - ")[0]),
                     max_weight: Number(dog.weight.split(" - ")[1]),
                     image: dog.image ? dog.image : null
@@ -78,7 +78,7 @@ router.get("/", async(req, res, next) => {  // /dogs y /dogs?name=razaDeApi o ra
                             id: dog.id,
                             image: dog.image.url,
                             name: dog.name,
-                            temperament: dog.temperament || "No tiene temperamentos",
+                            temperament: dog.temperament || "No temperaments",
                             min_weight: Number(dog.weight.metric.split(" - ")[0]),
                             max_weight: Number(dog.weight.metric.split(" - ")[1])
                         })
@@ -89,14 +89,14 @@ router.get("/", async(req, res, next) => {  // /dogs y /dogs?name=razaDeApi o ra
                         dogsWithName.push({
                             id: dog.id,
                             name: dog.name,
-                            temperament: dog.temperaments ? dog.temperaments.map(e => e.name).join(", ") : "No tiene temperamentos",
+                            temperament: dog.temperaments ? dog.temperaments.map(e => e.name).join(", ") : "No temperaments",
                             min_weight: Number(dog.weight.split(" - ")[0]),
                             max_weight: Number(dog.weight.split(" - ")[1]),
                             image: dog.image ? dog.image : null,
                         })
                 })
 
-            return res.json(dogsWithName.length > 0 ? dogsWithName : [{error:"No contamos con esa Raza"}])
+            return res.json(dogsWithName.length > 0 ? dogsWithName : ["We don't have that breed"])
             })
             .catch(error => {
                 return next(error)
@@ -121,7 +121,7 @@ router.get("/:idBreed", async(req, res, next) => { // /dogs/idDeApi o idDb
                 [{
                 id: myBreed.id,
                 name: myBreed.name,
-                temperament: myBreed.temperaments ? myBreed.temperaments.map(e => e.name).join(", ") : "No tiene temperamentos", 
+                temperament: myBreed.temperaments ? myBreed.temperaments.map(e => e.name).join(", ") : "No temperaments", 
                 min_weight: Number(myBreed.weight.split(" - ")[0]),
                 max_weight: Number(myBreed.weight.split(" - ")[1]),
                 min_height: Number(myBreed.height.split(" - ")[0]),
@@ -150,7 +150,7 @@ router.get("/:idBreed", async(req, res, next) => { // /dogs/idDeApi o idDb
                     id: e.id,
                     image: e.image.url,
                     name: e.name,
-                    temperament: e.temperament || "No tiene temperamentos",
+                    temperament: e.temperament || "No temperaments",
                     min_weight: Number(e.weight.metric.split(" - ")[0]),
                     max_weight: Number(e.weight.metric.split(" - ")[1]),
                     min_height: Number(e.height.metric.split(" - ")[0]),
@@ -161,7 +161,7 @@ router.get("/:idBreed", async(req, res, next) => { // /dogs/idDeApi o idDb
                 return newObj;
             })
             console.log(responseMapeada)
-            res.json(responseMapeada.length > 0 ? responseMapeada : [{notFound: "El id ingresado no corresponde a una raza"}])
+            res.json(responseMapeada.length > 0 ? responseMapeada : [{notFound: "No dogs corresponding with the ID"}])
         }catch(error){
             return next(error)
         }
