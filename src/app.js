@@ -23,8 +23,7 @@ server.use((req, res, next) => { // todo esto es configuracion de cors
   next();
 });
 
-server.use('/', routes); // El server va a usar en "/" las rutas traidas de './routes/index.js' 
-
+server.use('/', routes); // El server va a usar en "/" las rutas traidas de './routes/index.js'
 
 
 // Error catching endware. 
@@ -33,6 +32,13 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   const message = err.message || err;
   console.error(err);
   res.status(status).send(message);
+});
+
+server.use('*', (req, res) => {
+  console.log(req.baseUrl)
+  let notExistingUrl = req.baseUrl;
+  console.log("notExistingUrl: ",  notExistingUrl);
+  res.status(404).send(`${notExistingUrl} route does not exist`);
 });
 
 module.exports = server; // exporto la instancia de express

@@ -116,9 +116,10 @@ router.get("/:idBreed", async(req, res, next) => { // /dogs/idDeApi o idDb
                 include: Temperament
             })
 
-            const myBreedDetail = Object.assign([{}],
+            // console.log("myBreed: ", myBreed)
 
-                [{
+            const myBreedDetail = Object.assign({},
+                {
                 id: myBreed.id,
                 name: myBreed.name,
                 temperament: myBreed.temperaments ? myBreed.temperaments.map(e => e.name).join(", ") : "No temperaments", 
@@ -129,9 +130,8 @@ router.get("/:idBreed", async(req, res, next) => { // /dogs/idDeApi o idDb
                 min_life_span: myBreed.life_span ? myBreed.life_span : null,
                 max_life_span: myBreed.life_span ? myBreed.life_span : null,
                 image: myBreed.image ? myBreed.image : null    
-                }] 
+                } 
             )
-
             return res.json(myBreedDetail)
         }catch(error){
             next(error)
@@ -144,7 +144,7 @@ router.get("/:idBreed", async(req, res, next) => { // /dogs/idDeApi o idDb
         try{
             const response = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${api_key}`);
             const responseFiltrada = response.data.filter(e => e.id === idBreedNum);
-            console.log(responseFiltrada)
+            console.log("responseFiltrada: ", responseFiltrada)
             const responseMapeada = responseFiltrada.map(e => {
                 let newObj = {
                     id: e.id,
@@ -160,8 +160,7 @@ router.get("/:idBreed", async(req, res, next) => { // /dogs/idDeApi o idDb
                 };
                 return newObj;
             })
-            console.log(responseMapeada)
-            res.json(responseMapeada.length > 0 ? responseMapeada : [{notFound: "No dogs corresponding with the ID"}])
+            res.json(responseMapeada.length > 0 ? responseMapeada[0] : {notFound: "No dogs corresponding with the ID"})
         }catch(error){
             return next(error)
         }
