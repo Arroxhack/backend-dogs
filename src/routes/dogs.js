@@ -144,7 +144,7 @@ router.get("/:idBreed", async(req, res, next) => { // /dogs/idDeApi o idDb
         try{
             const response = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${api_key}`);
             const responseFiltrada = response.data.filter(e => e.id === idBreedNum);
-            console.log("responseFiltrada: ", responseFiltrada)
+            // console.log("responseFiltrada: ", responseFiltrada)
             const responseMapeada = responseFiltrada.map(e => {
                 let newObj = {
                     id: e.id,

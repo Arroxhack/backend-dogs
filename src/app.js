@@ -35,7 +35,7 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 });
 
 server.use('*', (req, res) => {
-  console.log(req.baseUrl)
+  // console.log(req.baseUrl)
   let notExistingUrl = req.baseUrl;
   console.log("notExistingUrl: ",  notExistingUrl);
   res.status(404).send(`${notExistingUrl} route does not exist`);
